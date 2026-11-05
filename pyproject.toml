@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apex-memory-sdk"
+version = "1.0.0"
+description = "Sovereign Omniversal Semantic Memory, Vector Store, Hebbian Synapse & Knowledge Graph Mesh"
+readme = "README.md"
+authors = [
+    { name = "GlacierEQ Engineering", email = "glaciereq@users.noreply.github.com" }
+]
+license = { text = "Proprietary" }
+requires-python = ">=3.9"
+dependencies = [
+    "cryptography>=3.4.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+]
+
+[project.scripts]
+apex-memory = "apex_memory.cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
