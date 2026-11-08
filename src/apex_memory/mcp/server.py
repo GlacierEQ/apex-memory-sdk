@@ -15,7 +15,9 @@ from apex_memory.synapse.network import AssociativeRecallEngine
 
 class MemoryMCPServer:
     def __init__(self, db_path: str | None = None) -> None:
-        path = db_path or os.environ.get("APEX_MEMORY_DB", str(Path.home() / ".apex" / "memory.sqlite3"))
+        path = db_path or os.environ.get(
+            "APEX_MEMORY_DB", str(Path.home() / ".apex" / "memory.sqlite3")
+        )
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         self.store = VectorStore(db_path=path)
         self.hebbian = HebbianNetwork()
@@ -148,7 +150,9 @@ class MemoryMCPServer:
             return {"count": len(rels), "relations": [r.to_dict() for r in rels]}
 
         if name == "memory_consolidate":
-            shard = self.consolidator.consolidate(args["shard_id"], args.get("label", "Agent Consolidation"))
+            shard = self.consolidator.consolidate(
+                args["shard_id"], args.get("label", "Agent Consolidation")
+            )
             return {
                 "status": "CONSOLIDATED",
                 "shard_id": shard["shard_id"],

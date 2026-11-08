@@ -42,6 +42,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     return parser
 
+
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
@@ -83,6 +84,7 @@ def main() -> None:
             print(f"Shard saved to {args.output}")
         else:
             print(json.dumps(shard, indent=2))
+
 
 if __name__ == "__main__":
     main()

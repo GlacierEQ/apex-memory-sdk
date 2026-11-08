@@ -5,7 +5,9 @@ from typing import Any
 
 
 class SynapticEdge:
-    def __init__(self, source: str, target: str, weight: float = 0.1, co_activations: int = 1) -> None:
+    def __init__(
+        self, source: str, target: str, weight: float = 0.1, co_activations: int = 1
+    ) -> None:
         self.source = source
         self.target = target
         self.weight = min(max(weight, 0.0), 1.0)
@@ -28,6 +30,7 @@ class SynapticEdge:
             "co_activations": self.co_activations,
             "last_activated": self.last_activated,
         }
+
 
 class HebbianNetwork:
     def __init__(self) -> None:
@@ -68,9 +71,13 @@ class HebbianNetwork:
             if edge.weight < min_weight:
                 continue
             if a == node:
-                results.append({"node": b, "weight": edge.weight, "co_activations": edge.co_activations})
+                results.append(
+                    {"node": b, "weight": edge.weight, "co_activations": edge.co_activations}
+                )
             elif b == node:
-                results.append({"node": a, "weight": edge.weight, "co_activations": edge.co_activations})
+                results.append(
+                    {"node": a, "weight": edge.weight, "co_activations": edge.co_activations}
+                )
         results.sort(key=lambda x: x["weight"], reverse=True)
         return results
 

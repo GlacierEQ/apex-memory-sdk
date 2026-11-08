@@ -18,7 +18,9 @@ class AssociativeRecallEngine:
                 if self.store.get(rel):
                     self.network.fire(item_id, rel, delta=0.25)
 
-    def recall(self, query: str, top_k: int = 3, expand_synaptic: bool = True) -> list[dict[str, Any]]:
+    def recall(
+        self, query: str, top_k: int = 3, expand_synaptic: bool = True
+    ) -> list[dict[str, Any]]:
         direct_matches = self.store.search_hybrid(query, top_k=top_k)
         if not expand_synaptic or not direct_matches:
             return direct_matches

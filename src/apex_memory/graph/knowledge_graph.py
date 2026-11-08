@@ -7,7 +7,9 @@ from apex_memory.exceptions import NodeNotFoundError
 
 
 class Entity:
-    def __init__(self, entity_id: str, label: str, properties: dict[str, Any] | None = None) -> None:
+    def __init__(
+        self, entity_id: str, label: str, properties: dict[str, Any] | None = None
+    ) -> None:
         self.entity_id = entity_id
         self.label = label
         self.properties = properties or {}
@@ -21,8 +23,15 @@ class Entity:
             "created_at": self.created_at,
         }
 
+
 class Relation:
-    def __init__(self, source_id: str, relation: str, target_id: str, properties: dict[str, Any] | None = None) -> None:
+    def __init__(
+        self,
+        source_id: str,
+        relation: str,
+        target_id: str,
+        properties: dict[str, Any] | None = None,
+    ) -> None:
         self.source_id = source_id
         self.relation = relation
         self.target_id = target_id
@@ -38,22 +47,33 @@ class Relation:
             "created_at": self.created_at,
         }
 
+
 class KnowledgeGraph:
     def __init__(self) -> None:
         self.entities: dict[str, Entity] = {}
         self.relations: list[Relation] = []
 
-    def add_entity(self, entity_id: str, label: str, properties: dict[str, Any] | None = None) -> Entity:
+    def add_entity(
+        self, entity_id: str, label: str, properties: dict[str, Any] | None = None
+    ) -> Entity:
         ent = Entity(entity_id=entity_id, label=label, properties=properties)
         self.entities[entity_id] = ent
         return ent
 
-    def add_relation(self, source_id: str, relation: str, target_id: str, properties: dict[str, Any] | None = None) -> Relation:
+    def add_relation(
+        self,
+        source_id: str,
+        relation: str,
+        target_id: str,
+        properties: dict[str, Any] | None = None,
+    ) -> Relation:
         if source_id not in self.entities:
             raise NodeNotFoundError(f"Source entity '{source_id}' does not exist in graph.")
         if target_id not in self.entities:
             raise NodeNotFoundError(f"Target entity '{target_id}' does not exist in graph.")
-        rel = Relation(source_id=source_id, relation=relation, target_id=target_id, properties=properties)
+        rel = Relation(
+            source_id=source_id, relation=relation, target_id=target_id, properties=properties
+        )
         self.relations.append(rel)
         return rel
 
@@ -66,7 +86,9 @@ class KnowledgeGraph:
     def get_incoming(self, target_id: str) -> list[Relation]:
         return [r for r in self.relations if r.target_id == target_id]
 
-    def query(self, subject: str | None = None, predicate: str | None = None, obj: str | None = None) -> list[Relation]:
+    def query(
+        self, subject: str | None = None, predicate: str | None = None, obj: str | None = None
+    ) -> list[Relation]:
         results = self.relations
         if subject:
             results = [r for r in results if r.source_id == subject]

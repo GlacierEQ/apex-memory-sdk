@@ -26,6 +26,7 @@ def test_vector_store_delete_and_list():
 
         store.close()
 
+
 def test_graph_traversal_disconnected():
     graph = KnowledgeGraph()
     graph.add_entity("IslandA", "Node")
@@ -37,6 +38,7 @@ def test_graph_traversal_disconnected():
     empty_sub = GraphTraversal.k_hop_subgraph(graph, "UnknownNode")
     assert empty_sub["entities"] == []
 
+
 def test_hebbian_cluster_and_pruning():
     net = HebbianNetwork()
     nodes = ["C1", "C2", "C3", "C4"]
@@ -47,6 +49,7 @@ def test_hebbian_cluster_and_pruning():
         net.apply_decay(factor=0.7)
 
     assert len(net.edges) == 0
+
 
 def test_save_and_load_shard_file():
     with tempfile.TemporaryDirectory() as tmpdir:

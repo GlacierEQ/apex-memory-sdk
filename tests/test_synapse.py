@@ -23,6 +23,7 @@ def test_hebbian_network_reinforcement_and_decay():
     assocs_decayed = net.get_associations("nodeA")
     assert round(assocs_decayed[0]["weight"], 2) == 0.25
 
+
 def test_associative_recall_engine():
     store = VectorStore(db_path=":memory:", dimensions=64)
     net = HebbianNetwork()

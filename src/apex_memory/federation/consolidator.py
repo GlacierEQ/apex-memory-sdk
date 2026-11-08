@@ -44,7 +44,9 @@ class MemoryConsolidator:
 
         return payload
 
-    def save_shard(self, output_path: Path | str, shard_id: str, label: str = "Episodic Shard") -> Path:
+    def save_shard(
+        self, output_path: Path | str, shard_id: str, label: str = "Episodic Shard"
+    ) -> Path:
         data = self.consolidate(shard_id, label)
         p = Path(output_path)
         p.parent.mkdir(parents=True, exist_ok=True)
@@ -75,6 +77,8 @@ class MemoryConsolidator:
 
         kg_relations = shard_data.get("knowledge_graph", {}).get("relations", [])
         for rel in kg_relations:
-            self.graph.add_relation(rel["source_id"], rel["relation"], rel["target_id"], rel.get("properties"))
+            self.graph.add_relation(
+                rel["source_id"], rel["relation"], rel["target_id"], rel.get("properties")
+            )
 
         return count

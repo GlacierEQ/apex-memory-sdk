@@ -54,7 +54,11 @@ class BM25Indexer:
                 if tf == 0:
                     continue
                 d_len = self.doc_lengths[doc_id]
-                denom = tf + self.k1 * (1.0 - self.b + self.b * (d_len / self.avg_doc_len if self.avg_doc_len > 0 else 1.0))
+                denom = tf + self.k1 * (
+                    1.0
+                    - self.b
+                    + self.b * (d_len / self.avg_doc_len if self.avg_doc_len > 0 else 1.0)
+                )
                 numerator = tf * (self.k1 + 1.0)
                 scores[doc_id] = scores.get(doc_id, 0.0) + idf * (numerator / denom)
 

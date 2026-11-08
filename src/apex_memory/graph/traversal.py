@@ -54,6 +54,8 @@ class GraphTraversal:
         return {
             "root": start_id,
             "max_hops": max_hops,
-            "entities": [graph.entities[eid].to_dict() for eid in visited_entities if eid in graph.entities],
+            "entities": [
+                graph.entities[eid].to_dict() for eid in visited_entities if eid in graph.entities
+            ],
             "relations": [r.to_dict() for r in collected_relations],
         }

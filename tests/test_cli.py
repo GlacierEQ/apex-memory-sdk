@@ -32,6 +32,7 @@ def test_cli_parser():
     assert args.shard_id == "SHARD-01"
     assert args.output == "shard.json"
 
+
 def test_cli_execution_info(capsys, monkeypatch):
     monkeypatch.setattr(sys, "argv", ["apex-memory", "info"])
     main()
@@ -39,19 +40,24 @@ def test_cli_execution_info(capsys, monkeypatch):
     assert "APEX Omniversal Semantic Memory SDK" in out
     assert "SQLite Vector Store" in out
 
+
 def test_cli_execution_remember_and_associate(capsys, monkeypatch):
     with tempfile.TemporaryDirectory() as tmpdir:
         db_file = str(Path(tmpdir) / "test_mem.sqlite3")
         monkeypatch.setenv("APEX_MEMORY_DB", db_file)
 
-        monkeypatch.setattr(sys, "argv", ["apex-memory", "remember", "ITEM-1", "Test content payload"])
+        monkeypatch.setattr(
+            sys, "argv", ["apex-memory", "remember", "ITEM-1", "Test content payload"]
+        )
         main()
         out = capsys.readouterr().out
         data = json.loads(out)
         assert data["status"] == "STORED"
         assert data["item_id"] == "ITEM-1"
 
-        monkeypatch.setattr(sys, "argv", ["apex-memory", "associate", "ConceptA", "ConceptB", "-d", "0.5"])
+        monkeypatch.setattr(
+            sys, "argv", ["apex-memory", "associate", "ConceptA", "ConceptB", "-d", "0.5"]
+        )
         main()
         out = capsys.readouterr().out
         data = json.loads(out)

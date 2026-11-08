@@ -37,6 +37,7 @@ class MemoryItem:
             "created_at": self.created_at,
         }
 
+
 class VectorStore:
     def __init__(self, db_path: Path | str = ":memory:", dimensions: int = 128) -> None:
         self.db_path = str(db_path)
@@ -69,7 +70,13 @@ class VectorStore:
         for item_id, content in cursor.fetchall():
             self.bm25.add_document(item_id, content)
 
-    def put(self, item_id: str, content: str, metadata: dict[str, Any] | None = None, tags: list[str] | None = None) -> MemoryItem:
+    def put(
+        self,
+        item_id: str,
+        content: str,
+        metadata: dict[str, Any] | None = None,
+        tags: list[str] | None = None,
+    ) -> MemoryItem:
         embedding = self.embedder.embed(content)
         created_at = dt.datetime.now(dt.timezone.utc).isoformat()
         item = MemoryItem(
@@ -127,7 +134,9 @@ class VectorStore:
 
     def list_all(self) -> list[MemoryItem]:
         cursor = self._conn.cursor()
-        cursor.execute("SELECT item_id, content, embedding, metadata, tags, created_at FROM memories")
+        cursor.execute(
+            "SELECT item_id, content, embedding, metadata, tags, created_at FROM memories"
+        )
         items = []
         for row in cursor.fetchall():
             items.append(

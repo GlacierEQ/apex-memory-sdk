@@ -18,6 +18,7 @@ def test_subword_embedding_engine():
     sim_unrelated = engine.cosine_similarity(v1, v3)
     assert sim_related > sim_unrelated
 
+
 def test_bm25_indexer():
     indexer = BM25Indexer()
     indexer.add_document("doc1", "federal court evidentiary docket transcript")
@@ -30,11 +31,14 @@ def test_bm25_indexer():
     assert top_doc == "doc2"
     assert score > 0.0
 
+
 def test_vector_store_hybrid_search():
     store = VectorStore(db_path=":memory:", dimensions=64)
     store.put("M1", "Federal court docket 1FDV-23-0001009 minute orders", tags=["legal", "court"])
     store.put("M2", "Civil RICO wire fraud 18 USC 1343 violations", tags=["rico", "fraud"])
-    store.put("M3", "Section 1983 state actor civil rights deprivation", tags=["1983", "civil_rights"])
+    store.put(
+        "M3", "Section 1983 state actor civil rights deprivation", tags=["1983", "civil_rights"]
+    )
 
     item = store.get("M1")
     assert item is not None
