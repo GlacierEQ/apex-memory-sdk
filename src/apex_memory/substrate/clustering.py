@@ -7,7 +7,7 @@ from typing import Any
 class VectorClusterer:
     @staticmethod
     def euclidean_distance(v1: list[float], v2: list[float]) -> float:
-        return math.sqrt(sum((a - b) ** 2 for a, b in zip(v1, v2, strict=False)))
+        return math.sqrt(sum((a - b) ** 2 for a, b in zip(v1, v2)))
 
     @classmethod
     def compute_centroid(cls, vectors: list[list[float]]) -> list[float]:

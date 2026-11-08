@@ -12,7 +12,9 @@ src/apex_memory/graph/traversal.py
 src/apex_memory/mcp/server.py
 src/apex_memory/substrate/__init__.py
 src/apex_memory/substrate/bm25.py
+src/apex_memory/substrate/clustering.py
 src/apex_memory/substrate/embeddings.py
+src/apex_memory/substrate/fusion.py
 src/apex_memory/substrate/vector_store.py
 src/apex_memory/synapse/__init__.py
 src/apex_memory/synapse/hebbian.py
@@ -23,8 +25,10 @@ src/apex_memory_sdk.egg-info/dependency_links.txt
 src/apex_memory_sdk.egg-info/entry_points.txt
 src/apex_memory_sdk.egg-info/requires.txt
 src/apex_memory_sdk.egg-info/top_level.txt
+tests/test_advanced.py
 tests/test_cli.py
 tests/test_federation.py
+tests/test_fusion_and_clustering.py
 tests/test_graph.py
 tests/test_mcp.py
 tests/test_substrate.py
