@@ -5,7 +5,7 @@ from apex_memory.graph.traversal import GraphTraversal
 
 __all__ = [
     "Entity",
-    "Relation",
-    "KnowledgeGraph",
     "GraphTraversal",
+    "KnowledgeGraph",
+    "Relation",
 ]

@@ -3,6 +3,7 @@ from __future__ import annotations
 import datetime as dt
 from typing import Any
 
+
 class SynapticEdge:
     def __init__(self, source: str, target: str, weight: float = 0.1, co_activations: int = 1) -> None:
         self.source = source

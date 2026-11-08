@@ -5,6 +5,7 @@ from apex_memory.graph.knowledge_graph import KnowledgeGraph
 from apex_memory.substrate.vector_store import VectorStore
 from apex_memory.synapse.hebbian import HebbianNetwork
 
+
 def test_memory_consolidation_and_shard_restore():
     store1 = VectorStore(db_path=":memory:", dimensions=64)
     net1 = HebbianNetwork()

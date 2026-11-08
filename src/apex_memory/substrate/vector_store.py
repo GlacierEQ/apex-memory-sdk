@@ -9,6 +9,7 @@ from typing import Any
 from apex_memory.substrate.bm25 import BM25Indexer
 from apex_memory.substrate.embeddings import SubwordEmbeddingEngine
 
+
 class MemoryItem:
     def __init__(
         self,

@@ -5,6 +5,7 @@ from typing import Any
 
 from apex_memory.graph.knowledge_graph import KnowledgeGraph
 
+
 class GraphTraversal:
     @staticmethod
     def shortest_path(graph: KnowledgeGraph, start_id: str, end_id: str) -> list[str] | None:

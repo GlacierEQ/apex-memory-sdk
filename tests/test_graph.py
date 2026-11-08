@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import pytest
+
 from apex_memory.exceptions import NodeNotFoundError
 from apex_memory.graph.knowledge_graph import KnowledgeGraph
 from apex_memory.graph.traversal import GraphTraversal
+
 
 def test_knowledge_graph_and_traversal():
     graph = KnowledgeGraph()

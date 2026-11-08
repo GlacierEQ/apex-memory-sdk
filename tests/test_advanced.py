@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import tempfile
 from pathlib import Path
+
 from apex_memory.federation.consolidator import MemoryConsolidator
 from apex_memory.graph.knowledge_graph import KnowledgeGraph
 from apex_memory.graph.traversal import GraphTraversal
 from apex_memory.substrate.vector_store import VectorStore
 from apex_memory.synapse.hebbian import HebbianNetwork
+
 
 def test_vector_store_delete_and_list():
     with tempfile.TemporaryDirectory() as tmpdir:

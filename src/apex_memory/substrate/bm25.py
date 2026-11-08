@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 import re
 from collections import Counter
-from typing import Any
+
 
 class BM25Indexer:
     def __init__(self, k1: float = 1.5, b: float = 0.75) -> None:

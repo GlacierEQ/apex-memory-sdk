@@ -10,6 +10,7 @@ from apex_memory.graph.knowledge_graph import KnowledgeGraph
 from apex_memory.substrate.vector_store import VectorStore
 from apex_memory.synapse.hebbian import HebbianNetwork
 
+
 class MemoryConsolidator:
     def __init__(
         self,

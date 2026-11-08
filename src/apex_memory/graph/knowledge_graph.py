@@ -5,6 +5,7 @@ from typing import Any
 
 from apex_memory.exceptions import NodeNotFoundError
 
+
 class Entity:
     def __init__(self, entity_id: str, label: str, properties: dict[str, Any] | None = None) -> None:
         self.entity_id = entity_id

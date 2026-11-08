@@ -4,6 +4,7 @@ import hashlib
 import math
 import re
 
+
 class SubwordEmbeddingEngine:
     def __init__(self, dimensions: int = 128, ngram_range: tuple[int, int] = (2, 4)) -> None:
         self.dimensions = dimensions

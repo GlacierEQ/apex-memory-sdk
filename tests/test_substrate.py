@@ -4,6 +4,7 @@ from apex_memory.substrate.bm25 import BM25Indexer
 from apex_memory.substrate.embeddings import SubwordEmbeddingEngine
 from apex_memory.substrate.vector_store import VectorStore
 
+
 def test_subword_embedding_engine():
     engine = SubwordEmbeddingEngine(dimensions=64)
     v1 = engine.embed("artificial intelligence autonomous agents")

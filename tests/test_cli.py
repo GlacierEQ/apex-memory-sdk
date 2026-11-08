@@ -4,7 +4,9 @@ import json
 import sys
 import tempfile
 from pathlib import Path
+
 from apex_memory.cli.main import build_parser, main
+
 
 def test_cli_parser():
     parser = build_parser()

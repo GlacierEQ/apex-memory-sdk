@@ -12,6 +12,7 @@ from apex_memory.substrate.vector_store import VectorStore
 from apex_memory.synapse.hebbian import HebbianNetwork
 from apex_memory.synapse.network import AssociativeRecallEngine
 
+
 class MemoryMCPServer:
     def __init__(self, db_path: str | None = None) -> None:
         path = db_path or os.environ.get("APEX_MEMORY_DB", str(Path.home() / ".apex" / "memory.sqlite3"))
@@ -201,7 +202,7 @@ class MemoryMCPServer:
                     "jsonrpc": "2.0",
                     "id": msg_id,
                     "result": {
-                        "content": [{"type": "text", "text": f"Error: {str(e)}"}],
+                        "content": [{"type": "text", "text": f"Error: {e!s}"}],
                         "isError": True,
                     },
                 }
@@ -227,7 +228,7 @@ class MemoryMCPServer:
                 err = {
                     "jsonrpc": "2.0",
                     "id": None,
-                    "error": {"code": -32700, "message": f"Parse error: {str(e)}"},
+                    "error": {"code": -32700, "message": f"Parse error: {e!s}"},
                 }
                 sys.stdout.write(json.dumps(err) + "\n")
                 sys.stdout.flush()

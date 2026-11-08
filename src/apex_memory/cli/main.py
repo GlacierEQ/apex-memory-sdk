@@ -6,11 +6,11 @@ import os
 from pathlib import Path
 
 from apex_memory.federation.consolidator import MemoryConsolidator
-from apex_memory.graph.knowledge_graph import KnowledgeGraph
 from apex_memory.mcp.server import MemoryMCPServer
 from apex_memory.substrate.vector_store import VectorStore
 from apex_memory.synapse.hebbian import HebbianNetwork
 from apex_memory.synapse.network import AssociativeRecallEngine
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(

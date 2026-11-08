@@ -5,6 +5,7 @@ from typing import Any
 from apex_memory.substrate.vector_store import VectorStore
 from apex_memory.synapse.hebbian import HebbianNetwork
 
+
 class AssociativeRecallEngine:
     def __init__(self, store: VectorStore, network: HebbianNetwork | None = None) -> None:
         self.store = store

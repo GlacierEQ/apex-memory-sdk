@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from apex_memory.mcp.server import MemoryMCPServer
 
+
 def test_memory_mcp_server():
     server = MemoryMCPServer(db_path=":memory:")
 

@@ -4,6 +4,7 @@ from apex_memory.substrate.vector_store import VectorStore
 from apex_memory.synapse.hebbian import HebbianNetwork
 from apex_memory.synapse.network import AssociativeRecallEngine
 
+
 def test_hebbian_network_reinforcement_and_decay():
     net = HebbianNetwork()
     edge = net.fire("nodeA", "nodeB", delta=0.2)

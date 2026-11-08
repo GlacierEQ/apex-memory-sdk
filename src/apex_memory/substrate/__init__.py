@@ -5,8 +5,8 @@ from apex_memory.substrate.embeddings import SubwordEmbeddingEngine
 from apex_memory.substrate.vector_store import MemoryItem, VectorStore
 
 __all__ = [
-    "SubwordEmbeddingEngine",
     "BM25Indexer",
     "MemoryItem",
+    "SubwordEmbeddingEngine",
     "VectorStore",
 ]
