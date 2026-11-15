@@ -129,8 +129,11 @@ class VectorStore:
     def delete(self, item_id: str) -> bool:
         cursor = self._conn.cursor()
         cursor.execute("DELETE FROM memories WHERE item_id = ?", (item_id,))
+        deleted = cursor.rowcount > 0
         self._conn.commit()
-        return cursor.rowcount > 0
+        if deleted:
+            self.bm25.remove_document(item_id)
+        return deleted
 
     def list_all(self) -> list[MemoryItem]:
         cursor = self._conn.cursor()

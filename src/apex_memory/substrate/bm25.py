@@ -40,6 +40,30 @@ class BM25Indexer:
         total_len = sum(self.doc_lengths.values())
         self.avg_doc_len = total_len / self.corpus_size if self.corpus_size > 0 else 0.0
 
+    def remove_document(self, doc_id: str) -> bool:
+        """Remove a document and all of its lexical corpus statistics.
+
+        Safe to call for an absent ID; repeated deletion must not alter IDF.
+        """
+        counts = self.term_freqs.pop(doc_id, None)
+        if counts is None:
+            return False
+
+        self.doc_lengths.pop(doc_id)
+        for word in counts:
+            remaining = self.doc_freqs[word] - 1
+            if remaining:
+                self.doc_freqs[word] = remaining
+            else:
+                del self.doc_freqs[word]
+
+        self.corpus_size -= 1
+        self.avg_doc_len = (
+            sum(self.doc_lengths.values()) / self.corpus_size
+            if self.corpus_size else 0.0
+        )
+        return True
+
     def score(self, query: str) -> list[tuple[str, float]]:
         q_tokens = self._tokenize(query)
         scores: dict[str, float] = {}
