@@ -35,3 +35,4 @@ Omniversal cognitive memory SDK providing federated semantic indexing, graph sub
 - **Test Suite:** `pytest tests` must pass 13/13 tests (`test_advanced.py`, `test_cli.py`, `test_federation.py`, `test_graph.py`, `test_mcp.py`, `test_substrate.py`, `test_synapse.py`).
 - **Harness Integration:** Must pass Gate 6 in `apex-harness verify`.
 - **Durability:** Synaptic graph state must persist idempotently across reboots without losing associative edges.
+- **Strength and Intelligence Strictly Outrank Speed:** Default to `deep` / `xhigh` / frontier (`pro` / `inherit`) retrieval, synthesis, and verification rather than speed-first or lightweight model shortcuts (inherits root `/Users/kcbflux/workspace/AGENTS.md` & `RULES.md` Rule 13).

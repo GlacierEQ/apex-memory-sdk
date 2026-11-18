@@ -187,4 +187,12 @@ class VectorStore:
         return output
 
     def close(self) -> None:
-        self._conn.close()
+        if getattr(self, "_conn", None) is not None:
+            try:
+                self._conn.close()
+            except Exception:
+                pass
+            self._conn = None  # type: ignore[assignment]
+
+    def __del__(self) -> None:
+        self.close()
