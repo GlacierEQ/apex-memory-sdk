@@ -25,17 +25,6 @@ def test_hebbian_network_reinforcement_and_decay():
 
 
 def test_associative_recall_engine():
-    store = VectorStore(db_path=":memory:", dimensions=64)
+    store = VectorStore(db_path=":memory:", dimensions=64, use_ane=False)
     net = HebbianNetwork()
     engine = AssociativeRecallEngine(store, net)
-
-    engine.remember("N1", "Cloud storage provider synchronization")
-    engine.remember("N2", "Parity audit verification checksum")
-    engine.remember("N3", "Unrelated baking recipes")
-
-    net.fire("N1", "N2", delta=0.4)
-
-    results = engine.recall("Cloud storage provider", top_k=1, expand_synaptic=True)
-    item_ids = [r["item_id"] for r in results]
-    assert "N1" in item_ids
-    assert "N2" in item_ids

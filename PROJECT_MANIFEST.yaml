@@ -1,0 +1,148 @@
+# Apex Memory SDK — Portable Project Manifest
+schema: glaciereq.project-manifest.v1
+generated_at: "2026-11-20T06:45:00-10:00"
+source_authority: "estate_owner_graph.json (t_a4098ff2 strategy) + live git readback + pyproject.toml"
+
+project:
+  key: apex-memory-sdk
+  canonical_name: "Apex Memory SDK"
+  canonical_owner: "GlacierEQ/apex-memory-sdk"
+  role: "sdk"
+  tier: "SubsystemIV"
+  purpose: "Memory SDK for APEX ecosystem — vector store, memory operations, CLI entrypoint"
+  operator_intent: "SDK layer for memory operations within APEX mesh; imported by apex-boot-core (boot_watchdog.py:342) and villaiage-workspace (unified_memory.py:27)"
+  runtime_entrypoint: "apex_memory.cli.main:main (console script: apex-memory)"
+  target_output: "Functional memory SDK with vector store, CLI, and library interfaces"
+  operational_users:
+    - "Casey (Operator)"
+    - "apex-boot-core (python import: scripts/boot_watchdog.py:342)"
+    - "villaiage-workspace (python import: ops/runtime/memory/unified_memory.py:27)"
+    - "APEX mesh agents"
+
+identity:
+  local_path: "/Users/kcbflux/workspace/projects/apex-memory-sdk"
+  git_origin: "https://github.com/GlacierEQ/apex-memory-sdk.git"
+  head_branch: "main"
+  head_sha: "16e8c2a7e7f0a72a396438245dcddcd71776fa98"
+  last_commit: "2026-11-18 09:09:11 -1000 | casey | fix(vector-store): guard connection close and add __del__ cleanup; sync AGENTS.md"
+  version_file: "pyproject.toml"
+  version: "1.0.0"
+  commit_count: 10
+  dirty_files: 2
+  branch_count: 1
+  worktrees:
+    - "/Users/kcbflux/Workspace/projects/apex-memory-sdk"
+  github:
+    visibility: "PRIVATE"
+    is_fork: false
+    is_archived: false
+    default_branch: "main"
+    updated_at: "2026-11-08T20:03:08Z"
+    language: "Python"
+    description: ""
+  registry: null
+
+boundaries:
+  files:
+    - "src/apex_memory/"
+    - "tests/"
+    - "pyproject.toml"
+    - "AGENTS.md"
+    - ".github/"
+  languages:
+    - "Python"
+    - "Markdown"
+  packages:
+    - "apex_memory"
+  dependency_interfaces:
+    - "pyproject.toml entrypoints: apex-memory = apex_memory.cli.main:main"
+    - "Imported top-level: apex_memory, argparse, collections, coremltools, datetime, hashlib, json, math, numpy, os, pathlib, re, sqlite3, string, sys, time, torch, typing"
+  services: []
+  secrets_references: []
+  deploy_targets:
+    - "local Mac workstation"
+    - "PyPI (potential)"
+  upstream_projects: []
+  downstream_projects:
+    - "apex-boot-core (python import: scripts/boot_watchdog.py:342)"
+    - "villaiage-workspace (python import: ops/runtime/memory/unified_memory.py:27)"
+    - "glaciereq-unified-memory MCP connector (workspace connector + apex-memory-sdk)"
+
+lineage:
+  root_source_branch: "main"
+  forks: []
+  history_preserving_renames: []
+  archived_generations: []
+  predecessor_projects: []
+  generated_mirrors: []
+  unique_unmerged_work:
+    - "16e8c2a: fix(vector-store): guard connection close and add __del__ cleanup; sync AGENTS.md"
+  all_branches:
+    - "main (HEAD)"
+    - "origin"
+    - "origin/main"
+  remotes:
+    - "origin"
+  ahead_behind: "1/0"
+  unpushed_commits: 1
+  unpulled_commits: 0
+
+state:
+  observed_working_features:
+    - "CLI entrypoint: apex-memory (apex_memory.cli.main:main)"
+    - "Vector store with connection guard and __del__ cleanup"
+    - "20 modules, 9 tests"
+    - "2 dirty files (uncommitted changes)"
+  broken_features: []
+  missing_dependencies: []
+  current_build_status: "operational (measured)"
+  outstanding_human_decisions: []
+
+separation:
+  case_evidence_excluded: true
+  forensic_records_preserved: true
+
+architecture_contracts:
+  - "pyproject.toml (deps: [], entrypoints: apex-memory)"
+  - "src/apex_memory/ (memory framework, vector store)"
+  - "AGENTS.md"
+  - "tests/ (run-before-reliance)"
+
+handoff:
+  startup_instructions: |
+    1. Install: `uv pip install -e .` (or `pip install -e .`)
+    2. Run CLI: `apex-memory --help`
+    3. Run tests: `python -m pytest tests/`
+    4. Check dirty files: `git status`
+  operator_instructions: |
+    - Role: SDK for memory operations in APEX ecosystem
+    - Critical dependency: imported by apex-boot-core (boot_watchdog.py:342) and villaiage-workspace (unified_memory.py:27)
+    - 1 unpushed commit (vector-store fix + AGENTS.md sync) — DO NOT force-push
+    - 2 dirty files — check git status before committing
+    - Dependencies: coremltools, numpy, torch (ML/vector stack)
+    - Version 1.0.0 in pyproject.toml
+    - Part of APEX SDK family (agent, memory, cloud, legal)
+  dependency_map:
+    imports:
+      - "apex_memory, argparse, collections, coremltools, datetime, hashlib, json, math, numpy, os, pathlib, re, sqlite3, string, sys, time, torch, typing"
+    contracts:
+      - "pyproject.toml"
+    entrypoints:
+      - "apex-memory (console script)"
+      - "tests/ (run-before-reliance)"
+  handoff_notes: |
+    - Critical path dependency for apex-boot-core and villaiage-workspace
+    - 1 unpushed commit with vector-store fix + AGENTS.md sync
+    - 2 dirty files need attention
+    - ML dependencies (coremltools, numpy, torch) — verify environment compatibility
+    - glaciereq-unified-memory MCP connector depends on this SDK
+
+verification_receipts:
+  - "estate_owner_graph.json (t_a4098ff2 strategy) — canonical owner with measured head"
+
+status: "deployed_verified"
+remaining_work:
+  - "Forward-port 1 unpushed commit (vector-store fix + AGENTS.md sync)"
+  - "Commit or stash 2 dirty files"
+  - "Verify ML dependencies compatibility"
+  - "Expand test coverage"

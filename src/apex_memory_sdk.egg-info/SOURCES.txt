@@ -1,3 +1,4 @@
+LICENSE
 README.md
 pyproject.toml
 src/apex_memory/__init__.py
@@ -11,6 +12,7 @@ src/apex_memory/graph/knowledge_graph.py
 src/apex_memory/graph/traversal.py
 src/apex_memory/mcp/server.py
 src/apex_memory/substrate/__init__.py
+src/apex_memory/substrate/ane_embeddings.py
 src/apex_memory/substrate/bm25.py
 src/apex_memory/substrate/clustering.py
 src/apex_memory/substrate/embeddings.py
@@ -30,6 +32,7 @@ tests/test_cli.py
 tests/test_federation.py
 tests/test_fusion_and_clustering.py
 tests/test_graph.py
+tests/test_index_deletion_consistency.py
 tests/test_mcp.py
 tests/test_substrate.py
 tests/test_synapse.py

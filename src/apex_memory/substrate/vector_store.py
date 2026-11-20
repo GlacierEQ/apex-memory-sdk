@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+
 import datetime as dt
 import json
 import sqlite3
@@ -8,6 +10,13 @@ from typing import Any
 
 from apex_memory.substrate.bm25 import BM25Indexer
 from apex_memory.substrate.embeddings import SubwordEmbeddingEngine
+
+try:
+    from apex_memory.substrate.ane_embeddings import ANEEmbeddingEngine
+
+    _ANE_AVAILABLE = True
+except Exception:
+    _ANE_AVAILABLE = False
 
 
 class MemoryItem:
@@ -38,11 +47,27 @@ class MemoryItem:
         }
 
 
+logger = logging.getLogger("apex_memory.vector_store")
+
+
 class VectorStore:
-    def __init__(self, db_path: Path | str = ":memory:", dimensions: int = 128) -> None:
+    def __init__(
+        self, db_path: Path | str = ":memory:", dimensions: int = 384, use_ane: bool = True
+    ) -> None:
         self.db_path = str(db_path)
         self.dimensions = dimensions
-        self.embedder = SubwordEmbeddingEngine(dimensions=dimensions)
+        if _ANE_AVAILABLE and use_ane:
+            try:
+                self.embedder = ANEEmbeddingEngine(dimensions=dimensions)
+                self._ane_ready = getattr(self.embedder, "_ane_ready", False)
+                logger.info("ANE embedding engine initialized (ane_ready=%s)", self._ane_ready)
+            except Exception as e:
+                logger.warning("ANE embedding engine failed, falling back to hash-based: %s", e)
+                self.embedder = SubwordEmbeddingEngine(dimensions=min(dimensions, 128))
+                self._ane_ready = False
+        else:
+            self.embedder = SubwordEmbeddingEngine(dimensions=min(dimensions, 128))
+            self._ane_ready = False
         self.bm25 = BM25Indexer()
         self._conn = sqlite3.connect(self.db_path)
         self._init_db()

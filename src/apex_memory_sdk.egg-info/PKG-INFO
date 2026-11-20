@@ -6,9 +6,11 @@ Author-email: GlacierEQ Engineering <glaciereq@users.noreply.github.com>
 License: Proprietary
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
+License-File: LICENSE
 Requires-Dist: cryptography>=3.4.0
 Provides-Extra: test
 Requires-Dist: pytest>=7.0.0; extra == "test"
+Dynamic: license-file
 
 # APEX Memory SDK
 
