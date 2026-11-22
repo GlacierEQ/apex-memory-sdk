@@ -10,7 +10,21 @@ readme = "README.md"
 authors = [
     { name = "GlacierEQ Engineering", email = "glaciereq@users.noreply.github.com" }
 ]
-license = { text = "Proprietary" }
+license = { text = "Apache-2.0" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Database :: Database Engines/Servers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 requires-python = ">=3.9"
 dependencies = [
     "cryptography>=3.4.0",
@@ -23,6 +37,12 @@ test = [
 
 [project.scripts]
 apex-memory = "apex_memory.cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/GlacierEQ/apex-memory-sdk"
+Repository = "https://github.com/GlacierEQ/apex-memory-sdk"
+Issues = "https://github.com/GlacierEQ/apex-memory-sdk/issues"
+Documentation = "https://github.com/GlacierEQ/apex-memory-sdk#readme"
 
 [tool.setuptools.packages.find]
 where = ["src"]

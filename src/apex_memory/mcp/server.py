@@ -106,6 +106,14 @@ class MemoryMCPServer:
                     "required": ["shard_id"],
                 },
             },
+            {
+                "name": "memory_health",
+                "description": "Health check: returns store status, memory count, synapse count, and graph entity count",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {},
+                },
+            },
         ]
 
     def dispatch_tool(self, name: str, args: dict[str, Any]) -> dict[str, Any]:
@@ -158,6 +166,18 @@ class MemoryMCPServer:
                 "shard_id": shard["shard_id"],
                 "shard_hash": shard["shard_hash"],
                 "memory_count": shard["memory_count"],
+            }
+
+        if name == "memory_health":
+            items = self.store.list_items() if hasattr(self.store, "list_items") else []
+            synapses = getattr(self.hebbian, "edges", {})
+            entities = self.graph.get_all_entities() if hasattr(self.graph, "get_all_entities") else []
+            return {
+                "status": "ok",
+                "memory_count": len(items),
+                "synapse_count": len(synapses),
+                "graph_entity_count": len(entities),
+                "db_path": str(self.store.db_path) if hasattr(self.store, "db_path") else None,
             }
 
         raise ValueError(f"Unknown tool: {name}")
@@ -236,3 +256,85 @@ class MemoryMCPServer:
                 }
                 sys.stdout.write(json.dumps(err) + "\n")
                 sys.stdout.flush()
+
+
+# HTTP server mode (transcribed from zer0dex pattern)
+def _run_http_server(port: int, db_path: str) -> None:
+    from http.server import HTTPServer, BaseHTTPRequestHandler
+    import secrets
+
+    server_instance = MemoryMCPServer(db_path=db_path)
+
+    class Handler(BaseHTTPRequestHandler):
+        def log_message(self, format, *args):
+            pass
+
+        def _send_json(self, data, status=200):
+            body = json.dumps(data).encode()
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def _read_body(self):
+            cl = int(self.headers.get("Content-Length", 0))
+            raw = self.rfile.read(cl)
+            try:
+                return json.loads(raw) if raw else {}
+            except json.JSONDecodeError:
+                return None
+
+        def do_GET(self):
+            if self.path == "/health":
+                items = server_instance.store.list_items() if hasattr(server_instance.store, "list_items") else []
+                self._send_json({"status": "ok", "memory_count": len(items)})
+            else:
+                self._send_json({"error": "not found"}, 404)
+
+        def do_POST(self):
+            data = self._read_body()
+            if not isinstance(data, dict):
+                self._send_json({"error": "invalid json"}, 400)
+                return
+            if self.path == "/query":
+                text = data.get("text", "")
+                limit = data.get("limit", 5)
+                try:
+                    results = server_instance.engine.recall(text, top_k=limit)
+                    self._send_json({"memories": results})
+                except Exception as e:
+                    self._send_json({"error": str(e)}, 500)
+            elif self.path == "/add":
+                item_id = data.get("item_id", f"item-{int(time.time())}")
+                content = data.get("content", "")
+                try:
+                    item = server_instance.store.put(item_id, content, tags=data.get("tags"))
+                    self._send_json({"status": "STORED", "item_id": item.item_id})
+                except Exception as e:
+                    self._send_json({"error": str(e)}, 500)
+            else:
+                self._send_json({"error": "not found"}, 404)
+
+    httpd = HTTPServer(("127.0.0.1", port), Handler)
+    print(f"apex-memory HTTP server on port {port}")
+    httpd.serve_forever()
+
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", type=int, default=18421)
+    parser.add_argument("--db-path", type=str, default=None)
+    args = parser.parse_args()
+
+    db_path = args.db_path or os.environ.get("APEX_MEMORY_DB", str(Path.home() / ".apex" / "memory.sqlite3"))
+    Path(db_path).parent.mkdir(parents=True, exist_ok=True)
+
+    # Check if stdin is a tty (interactive) - if not, run HTTP server
+    if not sys.stdin.isatty():
+        _run_http_server(args.port, db_path)
+    else:
+        # Run MCP stdio server
+        server = MemoryMCPServer(db_path=db_path)
+        server.run_stdio()
