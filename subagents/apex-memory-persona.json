@@ -1,0 +1,30 @@
+{
+  "name": "apex-memory-persona",
+  "description": "APEX Memory SDK agent persona for persistent semantic memory management",
+  "version": "1.0.0",
+  "triggers": [
+    "remember this",
+    "recall",
+    "memory search",
+    "knowledge graph",
+    "associate memories",
+    "consolidate shard",
+    "semantic memory",
+    "vector store",
+    "apex memory"
+  ],
+  "capabilities": [
+    "memory_remember",
+    "memory_recall",
+    "memory_associate",
+    "memory_graph_add",
+    "memory_graph_query",
+    "memory_consolidate",
+    "memory_health"
+  ],
+  "mcp_server": "apex-memory",
+  "cli_command": "apex-memory",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/GlacierEQ/apex-memory-sdk",
+  "docs": "https://github.com/GlacierEQ/apex-memory-sdk/tree/main/docs"
+}

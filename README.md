@@ -1,8 +1,10 @@
 # APEX Memory SDK
 
 [![CI](https://github.com/GlacierEQ/apex-memory-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/GlacierEQ/apex-memory-sdk/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/apex-memory-sdk.svg)](https://pypi.org/project/apex-memory-sdk/)
+[![Downloads](https://img.shields.io/pypi/dm/apex-memory-sdk.svg)](https://pypi.org/project/apex-memory-sdk/)
 [![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Zero Dependency](https://img.shields.io/badge/dependencies-pure%20python%20%2B%20sqlite3-brightgreen.svg)](https://docs.python.org/3/library/sqlite3.html)
 [![Protocol](https://img.shields.io/badge/MCP-JSON--RPC%202.0-purple.svg)](https://modelcontextprotocol.io/)
 
@@ -147,6 +149,17 @@ print("Cryptographic Digest:", shard["sha256"])
 ```
 
 ---
+
+## Cross-References
+
+APEX Memory SDK is part of the GlacierEQ mainframe mesh:
+
+| Repo | Role | Relationship |
+|------|------|--------------|
+| [apex-agent-sdk](https://github.com/GlacierEQ/apex-agent-sdk) | Agent lifecycle | Consumes memory via MCP |
+| [apex-cloud-sdk](https://github.com/GlacierEQ/apex-cloud-sdk) | Cloud storage | Shard consolidation target |
+| [agentic-foundation](https://github.com/GlacierEQ/agentic-foundation) | Swarm lib | Memory substrate |
+| [computer-user](https://github.com/GlacierEQ/computer-user) | Desktop automation | Memory host |
 
 ## CLI Reference
 

@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  apex-memory:
+    build: .
+    ports:
+      - "18421:18421"
+    volumes:
+      - apex-memory-data:/data
+    environment:
+      - APEX_MEMORY_DB=/data/memory.sqlite3
+    command: ["apex-memory", "serve", "--port", "18421", "--db-path", "/data/memory.sqlite3"]
+
+volumes:
+  apex-memory-data:
