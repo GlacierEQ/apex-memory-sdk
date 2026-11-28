@@ -18,8 +18,10 @@ Architecture:
 
 from __future__ import annotations
 
+import atexit
 import hashlib
 import math
+import os
 import time
 from typing import List
 
@@ -47,10 +49,17 @@ if not _NUMPY_AVAILABLE:
     _COREML_AVAILABLE = False
 
 try:
-    import coremltools as ct
+    if os.environ.get("APEX_FORCE_COREML") == "1":
+        import coremltools as ct
 
-    _COREML_AVAILABLE = True
-except ImportError:
+        _COREML_AVAILABLE = True
+    elif _TORCH_AVAILABLE:
+        _tv = tuple(int(p) for p in torch.__version__.split("+")[0].split(".")[:2])
+        if _tv <= (2, 7):
+            import coremltools as ct
+
+            _COREML_AVAILABLE = True
+except Exception:
     pass
 
 
@@ -95,6 +104,9 @@ class ANEEmbeddingEngine:
             "_coreml_error": getattr(self, "_coreml_error", None),
         }
 
+
+atexit.register(ANEEmbeddingEngine._model_cache.clear)
+
     def _init_fallback(self) -> None:
         """Initialize hash-based fallback embeddings."""
         from apex_memory.substrate.embeddings import SubwordEmbeddingEngine
@@ -127,7 +139,9 @@ class ANEEmbeddingEngine:
                 x = self.ffn(x)
                 return x.mean(dim=1)  # (batch, dim)
 
-        model = MiniEmbedding(vocab_size=8000, dim=self.dimensions, max_len=self.max_seq_len)
+        with torch.random.fork_rng():
+            torch.manual_seed(42)
+            model = MiniEmbedding(vocab_size=8000, dim=self.dimensions, max_len=self.max_seq_len)
         model.eval()
 
         # Simple char-level tokenizer (no external deps)
